@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PSB Cahaya Fajrul Islam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* TAMPILAN DASHBOARD (LAYAR) */
+        body { background-color: #f3f4f6; font-family: 'Poppins', sans-serif; }
+        .card { border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; border-radius: 12px; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .badge-score { font-size: 0.9rem; padding: 5px 10px; border-radius: 20px; }
+        
+        /* MODAL PREVIEW BACKGROUND */
+        .modal-body { background-color: #525659; display: flex; justify-content: center; padding: 20px; }
+
+        /* --- DESAIN PDF (KERTAS A4 COMPACT) --- */
+        .paper-preview {
+            background: white;
+            width: 210mm;
+            height: 297mm; /* Fix A4 Height */
+            padding: 10mm 15mm; /* Margin Kertas */
+            color: #333;
+            box-sizing: border-box;
+            position: relative;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden; 
+        }
+
+        /* 1. KOP SURAT CENTER */
+        .pdf-header {
+            text-align: center;
+            border-bottom: 3px double #198754;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .pdf-logo { width: 70px; height: auto; margin-bottom: 3px; }
+        .pdf-title h1 { font-size: 16pt; font-weight: 800; color: #198754; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
+        .pdf-address { font-size: 8pt; color: #444; margin: 2px 0; line-height: 1.2; }
+        .pdf-slogan { font-size: 9pt; font-weight: bold; font-style: italic; color: #198754; margin-top: 2px; }
+
+        /* 2. JUDUL DOKUMEN */
+        .doc-title { text-align: center; margin-bottom: 8px; }
+        .doc-title h2 {
+            font-size: 11pt; font-weight: bold; text-transform: uppercase; color: #000;
+            display: inline-block; border-bottom: 1px solid #999; padding-bottom: 2px; margin: 0;
+        }
+
+        /* 3. KOTAK INFO (GRID COMPACT) */
+        .info-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+        .info-card {
+            background-color: #f8f9fa; border-left: 3px solid #198754;
+            padding: 4px 8px; border-radius: 4px; flex: 1; min-width: 45%;
+        }
+        .info-label { font-size: 7pt; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 0px; }
+        .info-value { font-size: 10pt; font-weight: bold; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* 4. SECTION HEADER (COMPACT) */
+        .section-head {
+            background-color: #198754; color: white; padding: 2px 8px;
+            font-size: 9pt; font-weight: bold; text-transform: uppercase;
+            border-radius: 3px; margin-top: 8px; margin-bottom: 2px;
+        }
+
+        /* 5. DATA ROW (COMPACT) */
+        .data-row { display: flex; border-bottom: 1px solid #eee; padding: 2px 0; align-items: center; }
+        .data-key { width: 35%; font-weight: 600; color: #444; font-size: 9pt; padding-left: 5px; }
+        .data-val { width: 65%; font-weight: 500; color: #000; font-size: 9pt; }
+
+        /* 6. SCORE BADGE */
+        .score-pill { display: inline-block; padding: 0px 6px; border-radius: 6px; font-weight: bold; font-size: 8pt; color: white; background-color: #198754; }
+        .score-pill.low { background-color: #dc3545; } .score-pill.mid { background-color: #fd7e14; }
+
+        /* 7. CATATAN KOTAK (UKURAN MAKSIMAL) */
+        .notes-box {
+            border: 1px dashed #bbb; background-color: #fff; border-radius: 5px;
+            padding: 10px; 
+            height: 360px; /* DIBESARKAN MAKSIMAL */
+            margin-top: 5px;
+        }
+        /* Jarak antar garis diperlebar sedikit agar nyaman ditulis */
+        .note-line { border-bottom: 1px dotted #999; height: 22px; margin-bottom: 2px; }
+
+        /* 8. TANDA TANGAN (COMPACT BOTTOM) */
+        .signature-section {
+            display: flex; justify-content: space-between; 
+            margin-top: 15px; /* Jarak dari catatan */
+            padding-top: 5px; border-top: 1px solid #eee;
+        }
+        .sign-box { text-align: center; width: 30%; }
+        .sign-line { margin-top: 35px; border-bottom: 1px solid #000; }
+        .sign-name { font-weight: bold; margin-top: 2px; font-size: 9pt; }
+        .sign-role { font-size: 7pt; color: #666; text-transform: uppercase; }
+
+        .alert-pdf { color: #dc3545; font-weight: bold; font-size: 8pt; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #printAreaWrapper, #printAreaWrapper * { visibility: visible; }
+            @page { margin: 0; size: A4 portrait; }
+            .modal { position: static; display: block !important; }
+            .paper-preview { width: 100%; height: 100%; margin: 0; padding: 10mm 15mm; box-shadow: none; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginScreen" style="position: fixed; top:0; left:0; width:100%; height:100%; background:#198754; z-index:9999; display:flex; justify-content:center; align-items:center;">
+    <div class="bg-white p-4 rounded-4 shadow text-center" style="width: 320px;">
+        <h5 class="mb-3 fw-bold text-success">Admin Login</h5>
+        <input type="password" id="pinInput" class="form-control mb-3 text-center fs-5" placeholder="PIN: 2026">
+        <button onclick="login()" class="btn btn-success w-100 py-2 fw-bold">MASUK</button>
+    </div>
+</div>
+
+<div id="mainContent" style="display:none;">
+    <nav class="navbar navbar-dark bg-success shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand fw-bold mb-0 h1">Dashboard Admin</span>
+            <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-light fw-bold" onclick="location.reload()">Refresh</button>
+                <button class="btn btn-sm btn-danger fw-bold" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row" id="listSantri">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-success"></div>
+                <p class="mt-2 text-muted">Memuat data...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="printModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white py-2 no-print">
+                <h5 class="modal-title fs-6 ms-2">Pratinjau Dokumen (A4)</h5>
+                <div class="me-2">
+                    <button class="btn btn-sm btn-success fw-bold me-2 px-3" onclick="downloadPDF()"><i class="bi bi-file-earmark-pdf-fill"></i> DOWNLOAD</button>
+                    <button class="btn btn-sm btn-light fw-bold me-2 px-3" onclick="window.print()"><i class="bi bi-printer-fill"></i> PRINT</button>
+                    <button class="btn btn-sm btn-outline-secondary text-white" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+            <div class="modal-body overflow-auto">
+                <div id="printAreaWrapper">
+                    <div id="dynamicPaperContent" class="paper-preview">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { db, collection, getDocs, orderBy, query, deleteDoc, doc } from './config.js';
+
+    window.dataSantri = {};
+    window.dataWali = [];
+    window.currentName = "Dokumen";
+
+    // 1. CEK LOGIN
+    if(localStorage.getItem('isLoggedIn') === 'true') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        loadData();
+    }
+
+    window.login = function() {
+        if(document.getElementById('pinInput').value === "2026") {
+            localStorage.setItem('isLoggedIn', 'true');
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            loadData();
+        } else { alert("PIN Salah"); }
+    }
+
+    window.logout = function() {
+        if(confirm("Keluar dashboard?")) { localStorage.removeItem('isLoggedIn'); location.reload(); }
+    }
+
+    // 2. FUNGSI DOWNLOAD & HAPUS
+    window.downloadPDF = function() {
+        const element = document.getElementById('dynamicPaperContent');
+        const opt = {
+            margin: 0,
+            filename: `Laporan_${window.currentName}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+
+    window.hapusData = async function(col, id) {
+        if(confirm("Hapus data permanen?")) { await deleteDoc(doc(db, col, id)); location.reload(); }
+    }
+
+    // 3. LOAD DATA
+    async function loadData() {
+        try {
+            const [snapWali, snapSantri] = await Promise.all([
+                getDocs(query(collection(db, "wali_santri"), orderBy("waktu_isi", "desc"))).catch(() => getDocs(collection(db, "wali_santri"))),
+                getDocs(query(collection(db, "calon_santri"), orderBy("waktu_isi", "desc"))).catch(() => getDocs(collection(db, "calon_santri")))
+            ]);
+
+            window.dataWali = [];
+            snapWali.forEach(d => window.dataWali.push({ ...d.data(), id: d.id }));
+
+            let html = "";
+            snapSantri.forEach(doc => {
+                const d = doc.data();
+                const id = doc.id;
+                const adaWali = window.dataWali.find(w => w.namaAnak === d.nama);
+                const skor = d.tekad_skala || 0;
+                let bg = skor >= 8 ? 'bg-success' : (skor >= 5 ? 'bg-warning' : 'bg-danger');
+
+                html += `
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 p-3 shadow-sm border-start border-4 border-success">
+                        <div class="d-flex justify-content-between mb-2">
+                            <h5 class="fw-bold text-dark text-truncate" style="max-width:70%">${d.nama}</h5>
+                            <span class="badge ${bg}">${skor}/10</span>
+                        </div>
+                        <div class="mb-2">
+                            ${adaWali ? '<span class="badge bg-primary">Wali OK</span>' : '<span class="badge bg-secondary">Wali Kosong</span>'}
+                        </div>
+                        <div class="d-grid mt-2">
+                            <button class="btn btn-outline-success fw-bold btn-sm" onclick="previewGabungan('${id}')">Buka Dokumen</button>
+                        </div>
+                        <div class="text-end mt-1"><small onclick="hapusData('calon_santri','${id}')" class="text-danger" style="cursor:pointer">Hapus</small></div>
+                    </div>
+                </div>`;
+                window.dataSantri[id] = d;
+            });
+
+            document.getElementById('listSantri').innerHTML = html || '<div class="text-center py-5">Belum ada data.</div>';
+        } catch(e) { console.error(e); }
+    }
+
+    // 4. GENERATE PDF (LAYOUT A4 1 HALAMAN)
+    window.previewGabungan = function(id) {
+        const s = window.dataSantri[id];
+        if(!s) return;
+        window.currentName = s.nama.replace(/\s/g, "_");
+
+        const w = window.dataWali.find(wali => wali.namaAnak === s.nama) || null;
+        let listP = Array.isArray(s.pelanggaran_list) ? s.pelanggaran_list.join(", ") : (s.pelanggaran_list || "-");
+        let dangerStyle = (listP.includes("Merokok") || listP.includes("Pacaran")) ? 'alert-pdf' : '';
+        
+        // Data Wali Default
+        let wNama = ".......................", wSakit = "-", wSikap = "-", wHadir = "-", wStyle = "", wUang = "-";
+        if(w) {
+            wNama = w.namaWali;
+            wSakit = w.penyakit || "-";
+            wSikap = w.respon_disiplin;
+            wHadir = w.tanggungjawab_hadir === "Ya" ? "Siap Hadir" : "Sulit";
+            wUang = w.tanggungjawab_keuangan === "Sanggup" ? "Sanggup Bayar Tepat Waktu" : "Butuh Bicara Khusus";
+            if(wSikap === 'Protes') wStyle = "color:#dc3545; font-weight:bold;";
+        }
+
+        let tkClass = s.tekad_skala >= 8 ? 'score-pill' : (s.tekad_skala >= 5 ? 'score-pill mid' : 'score-pill low');
+
+        const html = `
+            <div class="pdf-header">
+                <img src="logo.png" class="pdf-logo" onerror="this.style.opacity='0'">
+                <div class="pdf-title">
+                    <h1>PESANTREN CAHAYA FAJRUL ISLAM</h1>
+                </div>
+                <div class="pdf-address">
+                    Jl. Jend. Sudirman RT/RW 003/001 Dusun Perawas II Desa Buluh Tumbang,<br>
+                    Kec. Tanjungpandan, Kab. Belitung Prov. Kep. Bangka Belitung
+                </div>
+                <div class="pdf-slogan">"Mencetak Generasi Cahaya Seutuhnya"</div>
+            </div>
+
+            <div class="doc-title">
+                <h2>LEMBAR HASIL ASESMEN & KOMITMEN</h2>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">SANTRI</div>
+                    <div class="info-value">${s.nama}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">WALI SANTRI</div>
+                    <div class="info-value">${wNama}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">SEKOLAH ASAL</div>
+                    <div class="info-value">${s.sekolah || '-'}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">SKOR NIAT</div>
+                    <div class="info-value">
+                        <span class="${tkClass}">${s.tekad_skala}/10</span> 
+                        <span style="font-size:8pt; font-weight:normal;">(${s.pendorong || '-'})</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-head">A. DIAGNOSIS KARAKTER SANTRI</div>
+            <div class="data-row"><div class="data-key">Ibadah (Rumah)</div><div class="data-val">Shalat: ${s.ibadah_shalat} | Ngaji: ${s.ibadah_ngaji}</div></div>
+            <div class="data-row"><div class="data-key">Kestabilan Emosi</div><div class="data-val">Respon: ${s.emosi_respon} | Bully: <strong>${s.emosi_pernah_bully}</strong></div></div>
+            <div class="data-row"><div class="data-key">Pelanggaran</div><div class="data-val"><span class="${dangerStyle}">${listP}</span></div></div>
+            <div class="data-row"><div class="data-key">Harapan / Takut</div><div class="data-val">Suka: ${s.pandangan_suka || '-'} | Takut: ${s.pandangan_takut || '-'}</div></div>
+
+            <div class="section-head">B. DATA & KOMITMEN WALI</div>
+            ${!w ? '<div style="font-size:8pt;color:red;text-align:center;">(Data Wali Belum Masuk)</div>' : ''}
+            <div class="data-row"><div class="data-key">Riwayat Penyakit</div><div class="data-val">${wSakit}</div></div>
+            <div class="data-row"><div class="data-key">Respon Hukuman</div><div class="data-val" style="${wStyle}">${wSikap}</div></div>
+            <div class="data-row"><div class="data-key">Hadir Darurat</div><div class="data-val">${wHadir}</div></div>
+            <div class="data-row"><div class="data-key">Kesiapan SPP</div><div class="data-val">${wUang}</div></div>
+
+            <div class="section-head">C. CATATAN PEWAWANCARA</div>
+            <div class="notes-box">
+                ${'<div class="note-line"></div>'.repeat(15)}
+            </div>
+
+            <div style="margin-top:10px; text-align:center; font-weight:bold; font-size:10pt; border:2px solid #333; padding:5px; border-radius:5px;">
+                KESIMPULAN: &nbsp;&nbsp; [ ] DITERIMA &nbsp;&nbsp; [ ] DITOLAK &nbsp;&nbsp; [ ] CADANGAN
+            </div>
+
+            <div class="signature-section">
+                <div class="sign-box">
+                    <div class="sign-role">Calon Santri</div>
+                    <div class="sign-line"></div>
+                    <div class="sign-name">${s.nama}</div>
+                </div>
+                <div class="sign-box">
+                    <div class="sign-role">Wali Santri</div>
+                    <div class="sign-line"></div>
+                    <div class="sign-name">${wNama}</div>
+                </div>
+                <div class="sign-box">
+                    <div class="sign-role">Pewawancara</div>
+                    <div class="sign-line"></div>
+                    <div class="sign-name">( ........................... )</div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('dynamicPaperContent').innerHTML = html;
+        new bootstrap.Modal(document.getElementById('printModal')).show();
+    }
+</script>
+</body>
+</html>
