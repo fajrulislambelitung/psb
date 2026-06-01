@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Wawancara Penguji - PSB 2026</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            padding-bottom: 50px;
+        }
+
+        /* HEADER PENGUJI (Tema Ungu sesuai gambar) */
+        .hero-header {
+            background-color: #5a2e98;
+            padding: 40px 20px 100px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 850px;
+            margin: -60px auto 40px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+        }
+
+        /* DESAIN INPUT & KOTAK DATA */
+        .data-box {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: #5a2e98;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 8px;
+        }
+
+        .eval-block {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .eval-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        /* Kotak Tampilan Data Awal */
+        .data-awal-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #5a2e98;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .data-awal-box strong {
+            color: #212529;
+            font-style: normal;
+        }
+
+        /* Input Catatan Penguji */
+        .form-control.note-input {
+            border: 1px dashed #5a2e98;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.95rem;
+        }
+        .form-control.note-input:focus {
+            border-style: solid;
+            box-shadow: 0 0 0 0.25rem rgba(90, 46, 152, 0.15);
+            border-color: #5a2e98;
+        }
+
+        /* Tombol Status */
+        .btn-status {
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .btn-submit {
+            background-color: #5a2e98;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #4a257c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-header">
+        <h2 class="fw-bold mb-1">Panel Wawancara Penguji</h2>
+        <p class="opacity-75">Tarik data awal, verifikasi, dan berikan catatan klarifikasi.</p>
+    </div>
+
+    <div class="form-container">
+        <form id="formPenguji">
+
+            <div class="data-box bg-light border-0 mb-4">
+                <label class="form-label fw-bold text-dark"><i class="bi bi-search me-2"></i>Pilih Santri & Tarik Data</label>
+                <div class="d-flex flex-column flex-md-row gap-2">
+                    <select id="pilihSantri" class="form-select border-primary fw-bold" required>
+                        <option value="" disabled selected>-- Pilih Nama Santri --</option>
+                        <option value="Muhammad Raffi">Muhammad Raffi</option>
+                        <option value="Alexy Pratama Hadrian">Alexy Pratama Hadrian</option>
+                        <option value="Amin Sugiono">Amin Sugiono</option>
+                        <option value="Fatir Al Muqminun Hakim">Fatir Al Muqminun Hakim</option>
+                        <option value="Ghifar Tri Mulia">Ghifar Tri Mulia</option>
+                        <option value="Ilham Maulana">Ilham Maulana</option>
+                        <option value="Medika Pratama">Medika Pratama</option>
+                        <option value="Muhammad Al Awin">Muhammad Al Awin</option>
+                        <option value="Muhammad Bilal Arifi">Muhammad Bilal Arifi</option>
+                        <option value="Rifki Ahnaf">Rifki Ahnaf</option>
+                        <option value="Muhammad Afif Al Baihaqi">Muhammad Afif Al Baihaqi</option>
+                        <option value="Muhammad Nabil Irwansyah">Muhammad Nabil Irwansyah</option>
+                        <option value="M. Umar Halim Rahmaputra">M. Umar Halim Rahmaputra</option>
+                        <option value="Riki Wardani">Riki Wardani</option>
+                        <option value="Riko Wardana">Riko Wardana</option>
+                        <option value="Qenzo Gavriel Alifiandra">Qenzo Gavriel Alifiandra</option>
+                        <option value="Fauzan Saputra">Fauzan Saputra</option>
+                        <option value="Nami Ria Ramadhani">Nami Ria Ramadhani</option>
+                        <option value="Naeva Marnia">Naeva Marnia</option>
+                        <option value="Nayya Salsabilla">Nayya Salsabilla</option>
+                        <option value="Qiara Anjani Divanti">Qiara Anjani Divanti</option>
+                        <option value="Naura Adelia Fitri">Naura Adelia Fitri</option>
+                        <option value="Najiha Shafiyah Afifah">Najiha Shafiyah Afifah</option>
+                        <option value="Qonita Azzahrah Alfansyuri">Qonita Azzahrah Alfansyuri</option>
+                        <option value="Nabila Nur Wamawadda Al-Maira">Nabila Nur Wamawadda Al-Maira</option>
+                    </select>
+                    <button type="button" id="btnLoadData" class="btn btn-primary fw-bold px-4 text-nowrap">
+                        <i class="bi bi-cloud-download-fill me-2"></i>Tampilkan Data Awal
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="data-box">
+                        <div class="text-muted small fw-bold text-uppercase">Asal Sekolah</div>
+                        <div id="viewSekolah" class="fw-bold fs-6">-</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="data-box">
+                        <div class="text-muted small fw-bold text-uppercase">Nama Wali (No. WA)</div>
+                        <div id="viewWali" class="fw-bold fs-6">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title"><i class="bi bi-person-lines-fill me-2"></i>A. KLARIFIKASI ISIAN SANTRI</div>
+
+            <div class="eval-block">
+                <div class="eval-title">1. Niat & Pendorong</div>
+                <div class="data-awal-box" id="dataSantriNiat">Menunggu penarikan data...</div>
+                <input type="text" id="noteNiat" class="form-control note-input" placeholder="Klarifikasi penguji: Apakah anak benar-benar mau sendiri atau dipaksa?">
+            </div>
+
+            <div class="eval-block">
+                <div class="eval-title">2. Praktik Ibadah (Shalat & Baca Qur'an)</div>
+                <div class="data-awal-box" id="dataSantriIbadah">Menunggu penarikan data...</div>
+                <textarea id="noteIbadah" class="form-control note-input" rows="2" placeholder="Catat hasil tes baca Qur'an, kelancaran tajwid, dan praktik gerakan shalat di sini..."></textarea>
+            </div>
+
+            <div class="eval-block">
+                <div class="eval-title">3. Karakter Sosial & Emosi</div>
+                <div class="data-awal-box" id="dataSantriEmosi">Menunggu penarikan data...</div>
+                <input type="text" id="noteEmosi" class="form-control note-input" placeholder="Klarifikasi penguji: Bagaimana adab anak saat diwawancara?">
+            </div>
+
+            <div class="eval-block">
+                <div class="eval-title">4. Pandangan, Harapan & Riwayat Pelanggaran</div>
+                <div class="data-awal-box" id="dataSantriPandangan">Menunggu penarikan data...</div>
+                <textarea id="notePandangan" class="form-control note-input" rows="2" placeholder="Klarifikasi penguji: Gali lebih dalam tentang riwayat pelanggaran atau ketakutannya..."></textarea>
+            </div>
+
+            <div class="eval-block">
+                <div class="eval-title">5. Potensi Diri / Bakat</div>
+                <div class="data-awal-box" id="dataSantriPotensi">Menunggu penarikan data...</div>
+                <input type="text" id="notePotensi" class="form-control note-input" placeholder="Klarifikasi penguji terkait bakat yang ditulis anak...">
+            </div>
+
+
+            <div class="section-title mt-5"><i class="bi bi-people-fill me-2"></i>B. KLARIFIKASI ISIAN WALI SANTRI</div>
+
+            <div class="eval-block">
+                <div class="eval-title">1. Motivasi Wali & Riwayat Kesehatan Anak</div>
+                <div class="data-awal-box" id="dataWaliKesehatan">Menunggu penarikan data...</div>
+                <textarea id="noteKesehatanWali" class="form-control note-input" rows="2" placeholder="Klarifikasi ulang: Pastikan tidak ada penyakit berat / alergi yang disembunyikan wali..."></textarea>
+            </div>
+
+            <div class="eval-block">
+                <div class="eval-title">2. Komitmen Kepatuhan & Evaluasi Perilaku</div>
+                <div class="data-awal-box" id="dataWaliKepatuhan">Menunggu penarikan data...</div>
+                <input type="text" id="noteKepatuhan" class="form-control note-input" placeholder="Klarifikasi penguji: Apakah wali siap jika anak diberi sanksi dari Sistem Evaluasi Pendidikan pesantren?">
+            </div>
+
+            <div class="eval-block">
+                <div class="eval-title">3. Komitmen Kehadiran & Keuangan (SPP)</div>
+                <div class="data-awal-box" id="dataWaliKomitmen">Menunggu penarikan data...</div>
+                <input type="text" id="noteKomitmen" class="form-control note-input" placeholder="Catatan kesanggupan bayar SPP atau kendala kehadiran...">
+            </div>
+
+
+            <div class="section-title mt-5"><i class="bi bi-check-circle-fill me-2"></i>C. KESIMPULAN & REKOMENDASI AKHIR</div>
+
+            <div class="data-box bg-light mb-4">
+                <label class="form-label fw-bold text-dark mb-2">Catatan Rahasia Penguji (Keseluruhan)</label>
+                <textarea id="catatanGlobal" class="form-control mb-4" rows="3" placeholder="Tuliskan alasan utama mengapa anak ini layak/tidak layak diterima..." required></textarea>
+
+                <div class="text-center">
+                    <p class="fw-bold text-muted mb-3">PILIH REKOMENDASI KELULUSAN:</p>
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="statusLulus" id="statusDiterima" value="DITERIMA" required>
+                            <label class="btn btn-outline-success btn-status w-100" for="statusDiterima">DITERIMA</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="statusLulus" id="statusCadangan" value="CADANGAN">
+                            <label class="btn btn-outline-warning btn-status w-100" for="statusCadangan">CADANGAN</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="statusLulus" id="statusDitolak" value="DITOLAK">
+                            <label class="btn btn-outline-danger btn-status w-100" for="statusDitolak">DITOLAK</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-submit btn-lg shadow-sm">
+                    <i class="bi bi-save-fill me-2"></i> SIMPAN HASIL WAWANCARA
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+<script type="module">
+    // Import mengikuti standar di file admin Bapak
+    import { db, collection, getDocs, query, orderBy, addDoc, serverTimestamp } from './config.js';
+
+    // Variabel Global untuk menyimpan data di sisi klien (seperti di admin dashboard)
+    window.dataSantriList = [];
+    window.dataWaliList = [];
+
+    // FUNGSI LOAD DATA DI LATAR BELAKANG SAAT HALAMAN DIBUKA
+    async function loadAllData() {
+        try {
+            // Menggunakan struktur Promise.all yang sama persis dengan kode Admin Bapak
+            const [snapWali, snapSantri] = await Promise.all([
+                getDocs(query(collection(db, "wali_santri"), orderBy("waktu_isi", "desc"))).catch(() => getDocs(collection(db, "wali_santri"))),
+                getDocs(query(collection(db, "calon_santri"), orderBy("waktu_isi", "desc"))).catch(() => getDocs(collection(db, "calon_santri")))
+            ]);
+
+            snapWali.forEach(doc => window.dataWaliList.push(doc.data()));
+            snapSantri.forEach(doc => window.dataSantriList.push(doc.data()));
+            
+            console.log("Data berhasil dimuat. Siap ditarik.");
+        } catch(e) { 
+            console.error("Gagal memuat data awal di background", e); 
+        }
+    }
+    
+    // Panggil fungsi saat halaman selesai dimuat
+    document.addEventListener("DOMContentLoaded", loadAllData);
+
+    // FUNGSI MENAMPILKAN DATA KE DALAM FORM (DIFILTER DARI VARIABEL GLOBAL)
+    document.getElementById('btnLoadData').addEventListener('click', function() {
+        const dropdown = document.getElementById('pilihSantri');
+        const namaSantri = dropdown.value;
+
+        if (!namaSantri) {
+            alert("Bismillah, silakan pilih nama santri dari kotak terlebih dahulu.");
+            dropdown.focus();
+            return;
+        }
+
+        // Cari data santri dari array lokal
+        const s = window.dataSantriList.find(d => d.nama === namaSantri);
+        
+        if (s) {
+            document.getElementById('viewSekolah').innerText = s.sekolah || "-";
+            
+            let pendorongText = s.pendorong === "Sendiri" ? "Keinginan Sendiri" : (s.pendorong === "Ortu" ? "Disuruh Ortu" : "Kesepakatan Bersama");
+            document.getElementById('dataSantriNiat').innerHTML = `
+                <strong>Skala Tekad:</strong> ${s.tekad_skala}/10 <br>
+                <strong>Pendorong Utama:</strong> ${pendorongText}
+            `;
+            
+            document.getElementById('dataSantriIbadah').innerHTML = `
+                <strong>Shalat 5 Waktu:</strong> ${s.ibadah_shalat} <br>
+                <strong>Ngaji Al-Qur'an:</strong> ${s.ibadah_ngaji}
+            `;
+            
+            let responEjek = s.emosi_respon === "Diam" ? "Diam / Lapor Ustadz" : (s.emosi_respon === "BalasLisan" ? "Balas Ejekan" : "Memukul/Berkelahi");
+            document.getElementById('dataSantriEmosi').innerHTML = `
+                <strong>Jika Diejek:</strong> ${responEjek} <br>
+                <strong>Pernah Mem-bully:</strong> ${s.emosi_pernah_bully}
+            `;
+            
+            let listPelanggaran = (Array.isArray(s.pelanggaran_list) && s.pelanggaran_list.length > 0) ? s.pelanggaran_list.join(", ") : "Bersih / Anak Baik";
+            document.getElementById('dataSantriPandangan').innerHTML = `
+                <strong>Harapan (Suka):</strong> ${s.pandangan_suka || '-'} <br>
+                <strong>Kekhawatiran (Takut):</strong> ${s.pandangan_takut || '-'} <br>
+                <strong>Pengakuan Pelanggaran:</strong> <span class="text-danger fw-bold">${listPelanggaran}</span>
+            `;
+            
+            document.getElementById('dataSantriPotensi').innerHTML = `
+                <strong>Bakat/Kelebihan:</strong> ${s.kekuatan_diri || '-'}
+            `;
+        } else {
+            document.getElementById('viewSekolah').innerText = "Belum Ada Data";
+            document.querySelectorAll('[id^="dataSantri"]').forEach(el => el.innerHTML = "<span class='text-danger'>Santri ini belum mengisi / mengirim form identitas diri.</span>");
+        }
+
+        // Cari data wali dari array lokal
+        const w = window.dataWaliList.find(d => d.namaAnak === namaSantri);
+        
+        if (w) {
+            document.getElementById('viewWali').innerText = `${w.namaWali} (${w.waWali})`;
+            
+            let motivasi = w.motivasi_utama === 'VisiMisi' ? "Visi Misi Pesantren" : (w.motivasi_utama === 'Mandiri' ? "Agar Mandiri/Disiplin" : "Faktor Biaya/Lokasi");
+            document.getElementById('dataWaliKesehatan').innerHTML = `
+                <strong>Motivasi Wali:</strong> ${motivasi} <br>
+                <strong>Riwayat Penyakit:</strong> ${w.penyakit || '-'}
+            `;
+            
+            document.getElementById('dataWaliKepatuhan').innerHTML = `
+                <strong>Respon jika Anak Dihukum:</strong> ${w.respon_disiplin || '-'} <br>
+                <strong>Pelanggaran di Sekolah Lama:</strong> ${w.pelanggaran || '-'}
+            `;
+            
+            document.getElementById('dataWaliKomitmen').innerHTML = `
+                <strong>Kesiapan SPP:</strong> ${w.tanggungjawab_keuangan} <br>
+                <strong>Kehadiran Darurat:</strong> ${w.tanggungjawab_hadir}
+            `;
+        } else {
+            document.getElementById('viewWali').innerText = "Belum Ada Data";
+            document.querySelectorAll('[id^="dataWali"]').forEach(el => el.innerHTML = "<span class='text-danger'>Wali dari santri ini belum mengisi komitmen pengasuhan.</span>");
+        }
+    });
+
+    // FUNGSI SIMPAN HASIL WAWANCARA KE DATABASE
+    document.getElementById('formPenguji').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menyimpan...';
+
+        try {
+            await addDoc(collection(db, "hasil_wawancara"), {
+                namaSantri: document.getElementById('pilihSantri').value,
+                
+                // Catatan Klarifikasi Santri
+                catatan_niat: document.getElementById('noteNiat').value,
+                catatan_ibadah: document.getElementById('noteIbadah').value,
+                catatan_emosi: document.getElementById('noteEmosi').value,
+                catatan_pandangan_pelanggaran: document.getElementById('notePandangan').value,
+                catatan_potensi: document.getElementById('notePotensi').value,
+                
+                // Catatan Klarifikasi Wali
+                catatan_kesehatan_wali: document.getElementById('noteKesehatanWali').value,
+                catatan_kepatuhan_wali: document.getElementById('noteKepatuhan').value,
+                catatan_komitmen_wali: document.getElementById('noteKomitmen').value,
+                
+                // Rekomendasi Akhir
+                catatan_global: document.getElementById('catatanGlobal').value,
+                status_kelulusan: document.querySelector('input[name="statusLulus"]:checked').value,
+                waktu_input: serverTimestamp()
+            });
+
+            alert("Alhamdulillah, Catatan Asesmen Wawancara Berhasil Disimpan!");
+            
+            // Bersihkan Form setelah sukses
+            document.getElementById('formPenguji').reset();
+            window.scrollTo(0, 0);
+            
+            // Reset UI Data Awal
+            document.getElementById('viewSekolah').innerText = "-";
+            document.getElementById('viewWali').innerText = "-";
+            document.querySelectorAll('.data-awal-box').forEach(el => el.innerHTML = "<em>Menunggu penarikan data...</em>");
+
+        } catch (error) {
+            console.error(error);
+            alert("Gagal Menyimpan Data: " + error.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    });
+</script>
+</body>
+</html>
