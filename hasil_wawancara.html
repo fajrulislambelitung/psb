@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil Wawancara PSB 2026</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #5a2e98;
+      --primary-dark: #43206f;
+      --soft-purple: #f4effb;
+      --bg: #f4f6fb;
+      --dark: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(90,46,152,.14), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(214,168,79,.10), transparent 28%),
+        var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #4b2380 0%, #6d3db0 60%, #8c62c5 100%);
+      color: #fff;
+      padding: 40px 20px 110px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      top: -160px;
+      right: -120px;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero h1 {
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0;
+      color: rgba(255,255,255,.82);
+    }
+
+    .main-container {
+      max-width: 1180px;
+      margin: -72px auto 0;
+      padding: 0 16px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.97);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.8);
+      box-shadow: 0 18px 60px rgba(31,41,55,.14);
+      overflow: hidden;
+    }
+
+    .toolbar {
+      padding: 22px;
+      background: linear-gradient(180deg, #fff, #fbfbfe);
+      border-bottom: 1px solid #eef0f5;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .search-box input {
+      height: 48px;
+      border-radius: 14px;
+      padding-left: 44px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+    }
+
+    .form-select,
+    .btn {
+      min-height: 48px;
+      border-radius: 14px;
+    }
+
+    .btn-main {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+    }
+
+    .btn-main:hover {
+      background: var(--primary-dark);
+      color: #fff;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      padding: 18px 22px;
+      background: #fff;
+      border-bottom: 1px solid #eef0f5;
+    }
+
+    .stat-card {
+      border: 1px solid #eef0f5;
+      background: #f9fafb;
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .stat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.total { background: var(--primary); }
+    .stat-icon.diterima { background: var(--success); }
+    .stat-icon.cadangan { background: var(--warning); }
+    .stat-icon.ditolak { background: var(--danger); }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .content-area {
+      padding: 22px;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid #edf0f5;
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: .25s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 38px rgba(31,41,55,.10);
+      border-color: rgba(90,46,152,.25);
+    }
+
+    .result-card::before {
+      content: "";
+      width: 6px;
+      height: 100%;
+      background: var(--primary);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .student-name {
+      font-weight: 800;
+      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    .date-text {
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    .status-diterima {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-cadangan {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-ditolak {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .preview-box {
+      background: #f9fafb;
+      border: 1px solid #eef0f5;
+      border-radius: 16px;
+      padding: 13px 14px;
+    }
+
+    .preview-label {
+      color: var(--primary);
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .preview-text {
+      color: #374151;
+      font-size: .86rem;
+      line-height: 1.55;
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .btn-soft {
+      background: var(--soft-purple);
+      color: var(--primary);
+      border: none;
+      font-weight: 700;
+    }
+
+    .btn-soft:hover {
+      background: #e7dcf7;
+      color: var(--primary-dark);
+    }
+
+    .loading-state,
+    .empty-state {
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .loading-state {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .empty-state {
+      color: var(--muted);
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: #c7b6e4;
+      margin-bottom: 14px;
+    }
+
+    .modal-content {
+      border: none;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary), #7d4fc2);
+      color: white;
+      border-bottom: none;
+      padding: 24px;
+    }
+
+    .modal-title {
+      font-weight: 800;
+    }
+
+    .detail-section {
+      border: 1px solid #eef0f5;
+      border-radius: 18px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .detail-section-title {
+      background: #f8f6fc;
+      color: var(--primary);
+      font-weight: 800;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eef0f5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      font-size: .92rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .detail-item {
+      padding: 15px 16px;
+      border-bottom: 1px dashed #e5e7eb;
+      border-right: 1px dashed #e5e7eb;
+    }
+
+    .detail-item:nth-child(even) {
+      border-right: none;
+    }
+
+    .detail-item.full {
+      grid-column: 1 / -1;
+      border-right: none;
+    }
+
+    .detail-label {
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      color: #263142;
+      font-size: .94rem;
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
+    .highlight-final {
+      background: linear-gradient(180deg, #fff, #fbf8ff);
+      border: 1px solid rgba(90,46,152,.18);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .stats-grid,
+      .preview-grid,
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-item {
+        border-right: none;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .hero,
+      .toolbar,
+      .stats-grid,
+      .modal-footer,
+      .btn,
+      .no-print {
+        display: none !important;
+      }
+
+      .main-container {
+        margin: 0;
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .panel {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <i class="bi bi-clipboard2-check-fill"></i>
+        PSB 2026 · Hasil Wawancara
+      </div>
+      <h1>Hasil Wawancara Santri Baru</h1>
+      <p>Menampilkan seluruh isian wawancara penguji, data awal santri, data wali, catatan klarifikasi, dan rekomendasi akhir.</p>
+    </div>
+  </section>
+
+  <main class="main-container">
+    <div class="panel">
+
+      <div class="toolbar">
+        <div class="row g-3 align-items-center">
+          <div class="col-lg-5">
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" id="searchInput" class="form-control" placeholder="Cari nama santri, catatan, sekolah, wali...">
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <select id="filterStatus" class="form-select fw-semibold">
+              <option value="SEMUA">Semua Status</option>
+              <option value="DITERIMA">Diterima</option>
+              <option value="CADANGAN">Cadangan</option>
+              <option value="DITOLAK">Ditolak</option>
+            </select>
+          </div>
+
+          <div class="col-lg-2">
+            <select id="sortBy" class="form-select fw-semibold">
+              <option value="terbaru">Terbaru</option>
+              <option value="terlama">Terlama</option>
+              <option value="nama">Nama A-Z</option>
+            </select>
+          </div>
+
+          <div class="col-lg-2 d-grid">
+            <button id="btnRefresh" class="btn btn-main">
+              <i class="bi bi-arrow-clockwise me-1"></i> Muat Ulang
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon total"><i class="bi bi-people-fill"></i></div>
+          <div>
+            <div class="stat-number" id="statTotal">0</div>
+            <div class="stat-label">Total Wawancara</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon diterima"><i class="bi bi-check-circle-fill"></i></div>
+          <div>
+            <div class="stat-number" id="statDiterima">0</div>
+            <div class="stat-label">Diterima</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon cadangan"><i class="bi bi-hourglass-split"></i></div>
+          <div>
+            <div class="stat-number" id="statCadangan">0</div>
+            <div class="stat-label">Cadangan</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon ditolak"><i class="bi bi-x-circle-fill"></i></div>
+          <div>
+            <div class="stat-number" id="statDitolak">0</div>
+            <div class="stat-label">Ditolak</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div id="loadingState" class="loading-state">
+          <div class="spinner-border mb-3" role="status"></div>
+          <div>Memuat seluruh hasil wawancara...</div>
+        </div>
+
+        <div id="emptyState" class="empty-state d-none">
+          <i class="bi bi-inbox"></i>
+          <h5 class="fw-bold text-dark">Belum ada data yang cocok</h5>
+          <p>Silakan ubah kata kunci pencarian atau filter status.</p>
+        </div>
+
+        <div id="resultList"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title" id="modalNama">Detail Hasil Wawancara</h5>
+            <div id="modalTanggal" class="opacity-75 small mt-1"></div>
+          </div>
+          <button type="button" class="btn-close btn-close-white no-print" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4" id="modalBody"></div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft" onclick="window.print()">
+            <i class="bi bi-printer-fill me-1"></i> Cetak / Simpan PDF
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script type="module">
+    import {
+      db,
+      collection,
+      getDocs,
+      query,
+      orderBy
+    } from './config.js';
+
+    let hasilWawancara = [];
+    let dataSantriList = [];
+    let dataWaliList = [];
+    let semuaDataGabungan = [];
+    let dataTampil = [];
+
+    const resultList = document.getElementById('resultList');
+    const loadingState = document.getElementById('loadingState');
+    const emptyState = document.getElementById('emptyState');
+
+    const searchInput = document.getElementById('searchInput');
+    const filterStatus = document.getElementById('filterStatus');
+    const sortBy = document.getElementById('sortBy');
+    const btnRefresh = document.getElementById('btnRefresh');
+
+    const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+
+    function safeText(value) {
+      if (value === undefined || value === null || value === "") return "-";
+      return String(value);
+    }
+
+    function escapeHtml(text) {
+      return safeText(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function potong(text, batas = 150) {
+      const t = safeText(text);
+      if (t.length <= batas) return t;
+      return t.substring(0, batas) + "...";
+    }
+
+    function formatTanggal(timestamp) {
+      try {
+        if (!timestamp) return "Tanggal belum tersedia";
+
+        let dateObj;
+
+        if (timestamp.toDate) {
+          dateObj = timestamp.toDate();
+        } else if (timestamp.seconds) {
+          dateObj = new Date(timestamp.seconds * 1000);
+        } else {
+          dateObj = new Date(timestamp);
+        }
+
+        return new Intl.DateTimeFormat('id-ID', {
+          weekday: 'long',
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }).format(dateObj);
+      } catch (e) {
+        return "Tanggal tidak terbaca";
+      }
+    }
+
+    function getDateValue(item) {
+      const t = item.waktu_input;
+      if (!t) return 0;
+      if (t.toDate) return t.toDate().getTime();
+      if (t.seconds) return t.seconds * 1000;
+      return new Date(t).getTime() || 0;
+    }
+
+    function getStatusClass(status) {
+      const s = safeText(status).toUpperCase();
+
+      if (s === "DITERIMA") return "status-diterima";
+      if (s === "CADANGAN") return "status-cadangan";
+      if (s === "DITOLAK") return "status-ditolak";
+
+      return "status-cadangan";
+    }
+
+    function getStatusIcon(status) {
+      const s = safeText(status).toUpperCase();
+
+      if (s === "DITERIMA") return "bi-check-circle-fill";
+      if (s === "CADANGAN") return "bi-hourglass-split";
+      if (s === "DITOLAK") return "bi-x-circle-fill";
+
+      return "bi-question-circle-fill";
+    }
+
+    function pendorongText(value) {
+      if (value === "Sendiri") return "Keinginan Sendiri";
+      if (value === "Ortu") return "Disuruh Orang Tua";
+      if (value === "Bersama") return "Kesepakatan Bersama";
+      return safeText(value);
+    }
+
+    function responEjekText(value) {
+      if (value === "Diam") return "Diam / Lapor Ustadz";
+      if (value === "BalasLisan") return "Balas Ejekan";
+      if (value === "Fisik") return "Memukul / Berkelahi";
+      return safeText(value);
+    }
+
+    function motivasiWaliText(value) {
+      if (value === "VisiMisi") return "Visi Misi Pesantren";
+      if (value === "Mandiri") return "Agar Mandiri / Disiplin";
+      if (value === "BiayaLokasi") return "Faktor Biaya / Lokasi";
+      return safeText(value);
+    }
+
+    function listText(value) {
+      if (Array.isArray(value) && value.length > 0) return value.join(", ");
+      return safeText(value);
+    }
+
+    async function getCollectionData(namaCollection, orderField = null) {
+      try {
+        if (orderField) {
+          const snap = await getDocs(query(collection(db, namaCollection), orderBy(orderField, "desc")));
+          const data = [];
+          snap.forEach(doc => data.push({ id: doc.id, ...doc.data() }));
+          return data;
+        }
+      } catch (e) {
+        console.warn(`OrderBy gagal untuk ${namaCollection}, mengambil tanpa orderBy.`);
+      }
+
+      const snap = await getDocs(collection(db, namaCollection));
+      const data = [];
+      snap.forEach(doc => data.push({ id: doc.id, ...doc.data() }));
+      return data;
+    }
+
+    async function loadData() {
+      loadingState.classList.remove('d-none');
+      emptyState.classList.add('d-none');
+      resultList.innerHTML = "";
+
+      try {
+        const [hasil, santri, wali] = await Promise.all([
+          getCollectionData("hasil_wawancara", "waktu_input"),
+          getCollectionData("calon_santri", "waktu_isi"),
+          getCollectionData("wali_santri", "waktu_isi")
+        ]);
+
+        hasilWawancara = hasil;
+        dataSantriList = santri;
+        dataWaliList = wali;
+
+        semuaDataGabungan = hasilWawancara.map(h => {
+          const nama = h.namaSantri;
+
+          const dataSantri = dataSantriList.find(s => s.nama === nama) || null;
+          const dataWali = dataWaliList.find(w => w.namaAnak === nama) || null;
+
+          return {
+            ...h,
+            dataSantri,
+            dataWali
+          };
+        });
+
+        applyFilter();
+
+      } catch (error) {
+        console.error(error);
+        resultList.innerHTML = `
+          <div class="alert alert-danger rounded-4">
+            <strong>Gagal memuat data.</strong><br>
+            ${escapeHtml(error.message)}
+          </div>
+        `;
+      } finally {
+        loadingState.classList.add('d-none');
+      }
+    }
+
+    function updateStats() {
+      const total = semuaDataGabungan.length;
+      const diterima = semuaDataGabungan.filter(d => safeText(d.status_kelulusan).toUpperCase() === "DITERIMA").length;
+      const cadangan = semuaDataGabungan.filter(d => safeText(d.status_kelulusan).toUpperCase() === "CADANGAN").length;
+      const ditolak = semuaDataGabungan.filter(d => safeText(d.status_kelulusan).toUpperCase() === "DITOLAK").length;
+
+      document.getElementById('statTotal').innerText = total;
+      document.getElementById('statDiterima').innerText = diterima;
+      document.getElementById('statCadangan').innerText = cadangan;
+      document.getElementById('statDitolak').innerText = ditolak;
+    }
+
+    function applyFilter() {
+      const keyword = searchInput.value.toLowerCase().trim();
+      const status = filterStatus.value;
+      const sorting = sortBy.value;
+
+      dataTampil = semuaDataGabungan.filter(item => {
+        const s = item.dataSantri || {};
+        const w = item.dataWali || {};
+
+        const gabunganText = `
+          ${safeText(item.namaSantri)}
+          ${safeText(item.status_kelulusan)}
+          ${safeText(item.catatan_niat)}
+          ${safeText(item.catatan_ibadah)}
+          ${safeText(item.catatan_emosi)}
+          ${safeText(item.catatan_pandangan_pelanggaran)}
+          ${safeText(item.catatan_potensi)}
+          ${safeText(item.catatan_kesehatan_wali)}
+          ${safeText(item.catatan_kepatuhan_wali)}
+          ${safeText(item.catatan_komitmen_wali)}
+          ${safeText(item.catatan_global)}
+
+          ${safeText(s.sekolah)}
+          ${safeText(s.pendorong)}
+          ${safeText(s.tekad_skala)}
+          ${safeText(s.ibadah_shalat)}
+          ${safeText(s.ibadah_ngaji)}
+          ${safeText(s.emosi_respon)}
+          ${safeText(s.emosi_pernah_bully)}
+          ${safeText(s.pandangan_suka)}
+          ${safeText(s.pandangan_takut)}
+          ${listText(s.pelanggaran_list)}
+          ${safeText(s.kekuatan_diri)}
+
+          ${safeText(w.namaWali)}
+          ${safeText(w.waWali)}
+          ${safeText(w.motivasi_utama)}
+          ${safeText(w.penyakit)}
+          ${safeText(w.respon_disiplin)}
+          ${safeText(w.pelanggaran)}
+          ${safeText(w.tanggungjawab_keuangan)}
+          ${safeText(w.tanggungjawab_hadir)}
+        `.toLowerCase();
+
+        const cocokKeyword = !keyword || gabunganText.includes(keyword);
+        const cocokStatus = status === "SEMUA" || safeText(item.status_kelulusan).toUpperCase() === status;
+
+        return cocokKeyword && cocokStatus;
+      });
+
+      if (sorting === "terbaru") {
+        dataTampil.sort((a, b) => getDateValue(b) - getDateValue(a));
+      } else if (sorting === "terlama") {
+        dataTampil.sort((a, b) => getDateValue(a) - getDateValue(b));
+      } else if (sorting === "nama") {
+        dataTampil.sort((a, b) => safeText(a.namaSantri).localeCompare(safeText(b.namaSantri)));
+      }
+
+      updateStats();
+      renderList();
+    }
+
+    function renderList() {
+      resultList.innerHTML = "";
+
+      if (dataTampil.length === 0) {
+        emptyState.classList.remove('d-none');
+        return;
+      }
+
+      emptyState.classList.add('d-none');
+
+      dataTampil.forEach((item, index) => {
+        const status = safeText(item.status_kelulusan).toUpperCase();
+        const tanggal = formatTanggal(item.waktu_input);
+        const s = item.dataSantri || {};
+        const w = item.dataWali || {};
+
+        const card = document.createElement('div');
+        card.className = 'result-card';
+
+        card.innerHTML = `
+          <div class="d-flex flex-column flex-lg-row justify-content-between gap-3">
+            <div>
+              <p class="student-name">${escapeHtml(item.namaSantri)}</p>
+              <div class="date-text">
+                <i class="bi bi-calendar-event me-1"></i>${escapeHtml(tanggal)}
+              </div>
+              <div class="date-text">
+                <i class="bi bi-building me-1"></i>${escapeHtml(s.sekolah || "Asal sekolah belum tersedia")}
+              </div>
+              <div class="date-text">
+                <i class="bi bi-person-heart me-1"></i>${escapeHtml(w.namaWali || "Data wali belum tersedia")}
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-2">
+              <span class="status-pill ${getStatusClass(status)}">
+                <i class="bi ${getStatusIcon(status)}"></i>
+                ${escapeHtml(status)}
+              </span>
+
+              <button class="btn btn-soft btn-sm px-3 btn-detail" data-index="${index}">
+                <i class="bi bi-eye-fill me-1"></i> Lihat Semua Form
+              </button>
+            </div>
+          </div>
+
+          <div class="preview-grid">
+            <div class="preview-box">
+              <div class="preview-label">Niat & Pendorong</div>
+              <p class="preview-text">${escapeHtml(potong(item.catatan_niat, 160))}</p>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-label">Ibadah & Qur'an</div>
+              <p class="preview-text">${escapeHtml(potong(item.catatan_ibadah, 160))}</p>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-label">Catatan Global</div>
+              <p class="preview-text">${escapeHtml(potong(item.catatan_global, 160))}</p>
+            </div>
+          </div>
+        `;
+
+        resultList.appendChild(card);
+      });
+
+      document.querySelectorAll('.btn-detail').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = Number(btn.dataset.index);
+          openDetail(dataTampil[index]);
+        });
+      });
+    }
+
+    function detailItem(label, value, full = false) {
+      return `
+        <div class="detail-item ${full ? "full" : ""}">
+          <div class="detail-label">${escapeHtml(label)}</div>
+          <div class="detail-value">${escapeHtml(value)}</div>
+        </div>
+      `;
+    }
+
+    function section(title, icon, innerHtml) {
+      return `
+        <div class="detail-section">
+          <div class="detail-section-title">
+            <i class="bi ${icon}"></i>
+            ${escapeHtml(title)}
+          </div>
+          <div class="detail-grid">
+            ${innerHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function openDetail(item) {
+      const s = item.dataSantri || {};
+      const w = item.dataWali || {};
+      const status = safeText(item.status_kelulusan).toUpperCase();
+
+      document.getElementById('modalNama').innerText = safeText(item.namaSantri);
+      document.getElementById('modalTanggal').innerText = formatTanggal(item.waktu_input);
+
+      const santriAwal = `
+        ${detailItem("Nama Santri", item.namaSantri)}
+        ${detailItem("Asal Sekolah", s.sekolah)}
+        ${detailItem("Skala Tekad", s.tekad_skala ? `${s.tekad_skala}/10` : "-")}
+        ${detailItem("Pendorong Utama", pendorongText(s.pendorong))}
+        ${detailItem("Shalat 5 Waktu", s.ibadah_shalat)}
+        ${detailItem("Ngaji Al-Qur'an", s.ibadah_ngaji)}
+        ${detailItem("Jika Diejek", responEjekText(s.emosi_respon))}
+        ${detailItem("Pernah Mem-bully", s.emosi_pernah_bully)}
+        ${detailItem("Harapan / Hal yang Disukai", s.pandangan_suka, true)}
+        ${detailItem("Kekhawatiran / Hal yang Ditakuti", s.pandangan_takut, true)}
+        ${detailItem("Pengakuan Pelanggaran", listText(s.pelanggaran_list), true)}
+        ${detailItem("Bakat / Kelebihan", s.kekuatan_diri, true)}
+      `;
+
+      const waliAwal = `
+        ${detailItem("Nama Wali", w.namaWali)}
+        ${detailItem("No. WA Wali", w.waWali)}
+        ${detailItem("Motivasi Wali", motivasiWaliText(w.motivasi_utama))}
+        ${detailItem("Riwayat Penyakit", w.penyakit)}
+        ${detailItem("Respon Jika Anak Dihukum", w.respon_disiplin, true)}
+        ${detailItem("Pelanggaran di Sekolah Lama", w.pelanggaran, true)}
+        ${detailItem("Kesiapan SPP", w.tanggungjawab_keuangan)}
+        ${detailItem("Kehadiran Darurat", w.tanggungjawab_hadir)}
+      `;
+
+      const klarifikasiSantri = `
+        ${detailItem("1. Niat & Pendorong", item.catatan_niat, true)}
+        ${detailItem("2. Praktik Ibadah, Shalat & Baca Qur'an", item.catatan_ibadah, true)}
+        ${detailItem("3. Karakter Sosial & Emosi", item.catatan_emosi, true)}
+        ${detailItem("4. Pandangan, Harapan & Riwayat Pelanggaran", item.catatan_pandangan_pelanggaran, true)}
+        ${detailItem("5. Potensi Diri / Bakat", item.catatan_potensi, true)}
+      `;
+
+      const klarifikasiWali = `
+        ${detailItem("1. Motivasi Wali & Riwayat Kesehatan Anak", item.catatan_kesehatan_wali, true)}
+        ${detailItem("2. Komitmen Kepatuhan & Evaluasi Perilaku", item.catatan_kepatuhan_wali, true)}
+        ${detailItem("3. Komitmen Kehadiran & Keuangan / SPP", item.catatan_komitmen_wali, true)}
+      `;
+
+      const kesimpulan = `
+        <div class="highlight-final full">
+          <div class="mb-3">
+            <span class="status-pill ${getStatusClass(status)}">
+              <i class="bi ${getStatusIcon(status)}"></i>
+              REKOMENDASI: ${escapeHtml(status)}
+            </span>
+          </div>
+          <div class="detail-label">Catatan Rahasia Penguji</div>
+          <div class="detail-value">${escapeHtml(item.catatan_global)}</div>
+        </div>
+      `;
+
+      document.getElementById('modalBody').innerHTML = `
+        ${section("Data Awal Santri", "bi-person-badge-fill", santriAwal)}
+        ${section("Data Awal Wali Santri", "bi-people-fill", waliAwal)}
+        ${section("A. Klarifikasi Isian Santri", "bi-person-lines-fill", klarifikasiSantri)}
+        ${section("B. Klarifikasi Isian Wali Santri", "bi-chat-square-text-fill", klarifikasiWali)}
+        ${section("C. Kesimpulan & Rekomendasi Akhir", "bi-check-circle-fill", kesimpulan)}
+      `;
+
+      detailModal.show();
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+    filterStatus.addEventListener('change', applyFilter);
+    sortBy.addEventListener('change', applyFilter);
+    btnRefresh.addEventListener('click', loadData);
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+
+</body>
+</html>
